@@ -4,7 +4,7 @@ import Header from "./Header";
 
 function Applayout() {
   return (
-    <div className=" bg-sky-50">
+    <div className="max-w-7xl mx-auto ">
       <section>
         <Header />
         <Sidebar />

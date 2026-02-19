@@ -7,7 +7,7 @@ function User() {
     <div className="flex justify-center items-center space-x-1.5">
       <h1 className="hidden font-mono sm:block">Hi, User!</h1>
       <motion.div
-        className="cursor-pointer text-xl hover:animate-bounce md:hidden "
+        className="cursor-pointer text-xl text-purple-600 hover:animate-bounce md:hidden "
         whileHover={{
           scale: 1.02,
           transition: { type: "spring", stiffness: 700 },
