@@ -5,3 +5,8 @@
   --font-nunito: "Nunito Sans", sans-serif;
   --font-rubik: "Rubik", sans-serif;
 }
+@layer base {
+  li {
+    @apply p-2 pl-3 hover:text-red-400 hover:bg-red-50 rounded-lg;
+  }
+}

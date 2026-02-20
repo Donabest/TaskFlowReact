@@ -4,6 +4,7 @@ import AllTask from "./components/AllTask";
 import CompletedTask from "./components/CompletedTask";
 import ImportantTask from "./components/ImportantTask";
 import UnCompletedTask from "./components/UnCompletedTask";
+import TaskStats from "./components/TaskStats";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="ImportantTask" element={<ImportantTask />} />
           <Route path="UnCompletedTask" element={<UnCompletedTask />} />
           <Route path="CompletedTask" element={<CompletedTask />} />
+          <Route path="TaskStats" element={<TaskStats />} />
         </Route>
       </Routes>
     </BrowserRouter>
