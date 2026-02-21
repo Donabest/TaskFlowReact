@@ -4,7 +4,7 @@ import Header from "./Header";
 
 function Applayout() {
   return (
-    <div className="max-w-8xl mx-auto ">
+    <div className="max-w-7xl mx-auto ">
       <section>
         <Header />
         <Sidebar />

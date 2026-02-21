@@ -1,15 +1,19 @@
 import { motion } from "motion/react";
+import { useMove } from "../components/useMove";
 
-function Button() {
+function Button({ style, children }) {
+  const handleClick = useMove();
+
   return (
     <motion.button
-      className="font-bai px-6 py-3 rounded-lg cursor-pointer text-white bg-[#006BFF] hover:bg-blue-600"
+      className={`${style}`}
       whileHover={{
-        scale: 1.02,
+        y: -2,
         transition: { type: "spring", stiffness: 1000, duration: 0.5 },
       }}
+      onClick={handleClick}
     >
-      Add New Task
+      {children}
     </motion.button>
   );
 }

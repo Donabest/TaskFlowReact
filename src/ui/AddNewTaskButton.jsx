@@ -15,7 +15,11 @@ function NewTaskButton() {
       >
         <HiBell />
       </motion.p>
-      <Button />
+      <Button
+        style={`font-bai px-6 py-3 rounded-lg cursor-pointer text-white bg-[#006BFF] hover:bg-blue-600`}
+      >
+        Add new Task
+      </Button>
     </div>
   );
 }
