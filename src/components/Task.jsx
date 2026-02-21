@@ -5,7 +5,7 @@ import { HiOutlineStar } from "react-icons/hi2";
 function Task() {
   return (
     <div className="flex flex-col bg-white px-4 pt-6 rounded-lg shadow-sm hover:shadow-lg hover:transition-shadow">
-      <div className="relative bg-red-100 p-12 rounded-lg shadow-xl">
+      <div className="relative bg-green-100 p-12 rounded-lg shadow-xl">
         <h1 className="absolute top-0 right-2">P1</h1>
         <p className="text-center">Not Bad</p>
       </div>

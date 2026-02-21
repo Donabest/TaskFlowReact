@@ -6,7 +6,7 @@ function Button({ style, children }) {
 
   return (
     <motion.button
-      className={`${style}`}
+      className={`${style} cursor-pointer  rounded-lg `}
       whileHover={{
         y: -2,
         transition: { type: "spring", stiffness: 1000, duration: 0.5 },

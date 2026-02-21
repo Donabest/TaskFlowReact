@@ -16,7 +16,7 @@ function NewTaskButton() {
         <HiBell />
       </motion.p>
       <Button
-        style={`font-bai px-6 py-3 rounded-lg cursor-pointer text-white bg-[#006BFF] hover:bg-blue-600`}
+        style={`font-bai px-6 py-3 rounded-lg cursor-pointer text-white bg-blue-600 hover:bg-blue-500`}
       >
         Add new Task
       </Button>

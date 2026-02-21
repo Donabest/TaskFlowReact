@@ -9,4 +9,12 @@
   li {
     @apply p-2 pl-3 hover:text-red-400 hover:bg-red-50 rounded-lg;
   }
+  label {
+    @apply font-nunito font-light tracking-wide;
+  }
+  input,
+  textarea,
+  select {
+    @apply bg-gray-200 focus:bg-white focus:outline-dotted;
+  }
 }

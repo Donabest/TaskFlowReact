@@ -16,28 +16,13 @@ const LiVariant = {
 };
 
 function Sidebar() {
-  const handleClick = useMove();
-
   return (
-    <div className="fixed top-0  py-12 px-4 bg-white w-55 h-screen z-1 shadow-4xl md:left-0 md:px-8 md:py-18 md:w-70">
+    <div className="hidden fixed top-0  py-12 px-4 bg-white w-55 h-screen z-1 shadow-4xl md:left-0 md:px-8 md:py-18 md:w-70">
       <motion.span className="absolute top-4 right-5 p-2 text-2xl rounded-full cursor-pointer hover:transition-all hover:bg-blue-300">
         <HiMiniXMark />
       </motion.span>
-      {/* <motion.button
-        className="bg-blue-600 text-white w-full py-2 mt-4 rounded-lg cursor-pointer "
-        whileHover={{
-          y: -5,
-          transition: { duration: 0.3 },
-        }}
-        onClick={handleClick}
-      >
-        Add new task
-      </motion.button> */}
-      <Button
-        style={
-          "bg-blue-600 text-white w-full py-2 mt-4 rounded-lg cursor-pointer "
-        }
-      >
+
+      <Button style={"bg-blue-600 text-white w-full py-2 mt-4  "}>
         Add new Task
       </Button>
 
