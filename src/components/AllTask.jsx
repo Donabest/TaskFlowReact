@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 
 import Sort from "../ui/Sort";
 import Task from "./Task";
-import NewTask from "../ui/NewTAsk";
+import NewTask from "../ui/NewTask";
 
 function AllTask() {
   return (

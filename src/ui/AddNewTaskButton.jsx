@@ -2,8 +2,11 @@ import { motion } from "motion/react";
 import { HiBell } from "react-icons/hi2";
 
 import Button from "./Button";
+import { useMove } from "../components/useMove";
 
 function NewTaskButton() {
+  const handleClick = useMove();
+
   return (
     <div className="hidden md:flex md:items-center md:space-x-4 md:text-center ">
       <motion.p
@@ -17,6 +20,7 @@ function NewTaskButton() {
       </motion.p>
       <Button
         style={`font-bai px-6 py-3 rounded-lg cursor-pointer text-white bg-blue-600 hover:bg-blue-500`}
+        onClick={handleClick}
       >
         Add new Task
       </Button>

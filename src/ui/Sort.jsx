@@ -13,7 +13,6 @@ function Sort() {
         id="Sortby"
         name="Sort by"
         className="font-bai bg-white px-2 py-2 rounded-lg shadow-lg outline-blue-700 cursor-pointer"
-        value="sort by"
       >
         <option value="sort by" disabled>
           sort by

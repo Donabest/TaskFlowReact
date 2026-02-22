@@ -1,9 +1,6 @@
 import { motion } from "motion/react";
-import { useMove } from "../components/useMove";
 
-function Button({ style, children }) {
-  const handleClick = useMove();
-
+function Button({ style, onClick, children }) {
   return (
     <motion.button
       className={`${style} cursor-pointer  rounded-lg `}
@@ -11,7 +8,7 @@ function Button({ style, children }) {
         y: -2,
         transition: { type: "spring", stiffness: 1000, duration: 0.5 },
       }}
-      onClick={handleClick}
+      onClick={onClick}
     >
       {children}
     </motion.button>
