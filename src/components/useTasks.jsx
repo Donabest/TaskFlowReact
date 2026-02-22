@@ -5,6 +5,7 @@ const TasksContext = createContext();
 function TasksProvider({ children }) {
   const [showSideBar, setShowSideBar] = useState(false);
   const [IsDeleteAllModal, setIsDeleteAllModal] = useState(false);
+  const [tasks, setTask] = useState([]);
 
   function handleSideBarClick() {
     setShowSideBar((show) => !show);
@@ -22,6 +23,8 @@ function TasksProvider({ children }) {
         IsDeleteAllModal,
         handleDeleteAllModal,
         handleSideBarClick,
+        tasks,
+        setTask,
       }}
     >
       {children}
@@ -36,4 +39,5 @@ function useTasks() {
 
   return context;
 }
+
 export { TasksProvider, useTasks };
