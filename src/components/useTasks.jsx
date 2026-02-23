@@ -4,15 +4,21 @@ const TasksContext = createContext();
 
 function TasksProvider({ children }) {
   const [showSideBar, setShowSideBar] = useState(false);
-  const [IsDeleteAllModal, setIsDeleteAllModal] = useState(false);
+  const [IsDeleteTaskModal, setIsDeleteTaskModal] = useState(false);
   const [tasks, setTask] = useState([]);
 
   function handleSideBarClick() {
     setShowSideBar((show) => !show);
   }
 
-  function handleDeleteAllModal() {
-    setIsDeleteAllModal((show) => !show);
+  function handleDeleteTaskModal() {
+    setIsDeleteTaskModal((show) => !show);
+  }
+
+  function hanldeDeleteTask(id) {
+    const TaskToDelete = tasks.filter((task) => task.id !== id);
+    setTask(TaskToDelete);
+    setIsDeleteTaskModal((show) => !show);
   }
 
   return (
@@ -20,11 +26,12 @@ function TasksProvider({ children }) {
       value={{
         showSideBar,
         setShowSideBar,
-        IsDeleteAllModal,
-        handleDeleteAllModal,
+        IsDeleteTaskModal,
+        handleDeleteTaskModal,
         handleSideBarClick,
         tasks,
         setTask,
+        hanldeDeleteTask,
       }}
     >
       {children}

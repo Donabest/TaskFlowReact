@@ -21,17 +21,17 @@ function Sidebar() {
   const {
     showSideBar,
     handleSideBarClick,
-    handleDeleteAllModal,
-    IsDeleteAllModal,
+    handleDeleteTaskModal,
+    IsDeleteTaskModal,
   } = useTasks();
   const handleClick = useMove();
 
   return (
     <>
-      {IsDeleteAllModal && (
+      {IsDeleteTaskModal && (
         <ConfirmModal
           message="All data will be deleted permanently."
-          handleClick={handleDeleteAllModal}
+          handleClick={handleDeleteTaskModal}
         />
       )}
 
@@ -73,7 +73,7 @@ function Sidebar() {
           <motion.li
             variants={LiVariant}
             whileHover="hover"
-            onClick={handleDeleteAllModal}
+            onClick={handleDeleteTaskModal}
           >
             Delete All Data
           </motion.li>

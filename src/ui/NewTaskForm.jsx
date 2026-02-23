@@ -12,6 +12,7 @@ function NewTaskForm() {
   const navigate = useNavigate();
 
   const { errors } = formState;
+  const now = new Date().getTime().toString(36);
 
   function onSubmit(data) {
     setTask((task) => [...task, data]);
@@ -29,6 +30,7 @@ function NewTaskForm() {
         className=" p-4 mt-4 space-y-8 md:max-w-xl md:mx-auto md:pr-0"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
+        <input type="hidden" defaultValue={now} {...register("id")} />
         <div className="flex flex-col space-y-4">
           <label htmlFor="title">Title</label>
           <input
@@ -97,6 +99,7 @@ function NewTaskForm() {
               <option value="complete">complete</option>
               <option value="Uncomplete">Uncomplete</option>
               <option value="important">Important</option>
+              <option value="important">Unimportant</option>
             </select>
             <FormError error={errors?.status?.message} />
           </div>

@@ -1,7 +1,9 @@
-import { HiEllipsisVertical } from "react-icons/hi2";
+import { HiEllipsisVertical, HiStar } from "react-icons/hi2";
 import { HiMiniTrash } from "react-icons/hi2";
 import { HiOutlineStar } from "react-icons/hi2";
 import { useTasks } from "./useTasks";
+import { useState } from "react";
+import ConfirmModal from "../ui/ConfirmModal";
 
 const tasks = [
   {
@@ -28,13 +30,14 @@ const tasks = [
     description: "learning framer motion",
     startDate: "2/14/2002",
     endDate: "2/14/2002",
-    status: "important",
+    status: "complete",
     priority: "p2",
   },
 ];
 
 function Task() {
-  // const { tasks } = useTasks();
+  const { tasks, IsDeleteTaskModal, handleDeleteTaskModal, hanldeDeleteTask } =
+    useTasks();
 
   const priorityColor = {
     p0: "bg-green-100",
@@ -45,48 +48,64 @@ function Task() {
   return (
     <>
       {tasks.map((task) => (
-        <div
-          className="flex flex-col bg-white px-4 pt-6 rounded-lg shadow-sm hover:shadow-lg hover:transition-shadow"
-          key={task.id}
-        >
+        <>
           <div
-            className={` relative ${priorityColor[task.priority]} p-12 rounded-lg shadow-xl`}
+            className="flex flex-col bg-white px-4 pt-6 rounded-lg shadow-sm hover:shadow-lg hover:transition-shadow"
+            key={task.id}
           >
-            <h1 className="absolute top-0 right-2">{task.priority}</h1>
-            <p className="text-center">{task.title}</p>
-          </div>
-
-          <p className=" font-bai my-6 text-center">{task.description}</p>
-
-          <div className="flex justify-between items-center mb-4 ">
-            <div>
-              <p className="font-bai font-black tracking-wide text-sm">
-                Start Date
-              </p>
-              <span className="font-light ">{task.startDate}</span>
-            </div>
-            <div>
-              <p className="font-bai font-black tracking-wide text-sm">
-                End Date
-              </p>
-              <span className="font-light">{task.endDate}</span>
-            </div>
-          </div>
-
-          <div className="flex justify-between items-center my-4 ">
-            <p
-              className={`${priorityColor[task.priority]} px-4 py-2 rounded-xl`}
+            <div
+              className={` relative ${priorityColor[task.priority]} p-12 rounded-lg shadow-xl`}
             >
-              {task.status}
-            </p>
+              <h1 className="absolute top-0 right-2">{task.priority}</h1>
+              <p className="text-center">{task.title}</p>
+            </div>
 
-            <div className="flex text-xl space-x-1 md:space-x-1.5">
-              <HiOutlineStar className="cursor-pointer" />
-              <HiMiniTrash className="cursor-pointer" />
-              <HiEllipsisVertical className="cursor-pointer" />
+            <p className=" font-bai my-6 text-center">{task.description}</p>
+
+            <div className="flex justify-between items-center mb-4 ">
+              <div>
+                <p className="font-bai font-black tracking-wide text-sm">
+                  Start Date
+                </p>
+                <span className="font-light ">{task.startDate}</span>
+              </div>
+              <div>
+                <p className="font-bai font-black tracking-wide text-sm">
+                  End Date
+                </p>
+                <span className="font-light">{task.endDate}</span>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center my-4 ">
+              <p
+                className={`${priorityColor[task.priority]} px-4 py-2 rounded-xl cursor-pointer`}
+              >
+                {task.status}
+              </p>
+
+              <div className="flex text-xl space-x-1 md:space-x-1.5">
+                {task.status === "important" ? (
+                  <HiStar className="cursor-pointer" />
+                ) : (
+                  <HiOutlineStar className="cursor-pointer" />
+                )}
+                <HiMiniTrash
+                  className="cursor-pointer"
+                  onClick={handleDeleteTaskModal}
+                />
+                <HiEllipsisVertical className="cursor-pointer" />
+              </div>
             </div>
           </div>
-        </div>
+          {IsDeleteTaskModal && (
+            <ConfirmModal
+              message="This task will be deleted permanently."
+              onConfirm={() => hanldeDeleteTask(task.id)}
+              handleClick={handleDeleteTaskModal}
+            />
+          )}
+        </>
       ))}
     </>
   );
