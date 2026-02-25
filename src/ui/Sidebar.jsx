@@ -22,13 +22,13 @@ function Sidebar() {
     showSideBar,
     handleSideBarClick,
     handleDeleteTaskModal,
-    IsDeleteTaskModal,
+    isDeleteTaskModal,
   } = useTasks();
   const handleClick = useMove();
 
   return (
     <>
-      {IsDeleteTaskModal && (
+      {isDeleteTaskModal && (
         <ConfirmModal
           message="All data will be deleted permanently."
           handleClick={handleDeleteTaskModal}
@@ -55,16 +55,16 @@ function Sidebar() {
               <Link to="/AllTask">All Tasks</Link>
             </motion.li>
             <motion.li variants={LiVariant} whileHover="hover">
-              <Link>Completed Tasks</Link>
+              <Link to="/completedTask">Completed Tasks</Link>
             </motion.li>
             <motion.li variants={LiVariant} whileHover="hover">
-              <Link>Uncompleted Tasks</Link>
+              <Link to="UnCompletedTask">Uncompleted Tasks</Link>
             </motion.li>
             <motion.li variants={LiVariant} whileHover="hover">
-              <Link>Important Tasks</Link>
+              <Link to="ImportantTask">Important Tasks</Link>
             </motion.li>
             <motion.li variants={LiVariant} whileHover="hover">
-              <Link to="/TaskStats">Task Stats</Link>
+              <Link to="TastStats">Task Stats</Link>
             </motion.li>
           </ul>
         </aside>

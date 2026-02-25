@@ -2,42 +2,15 @@ import { HiEllipsisVertical, HiStar } from "react-icons/hi2";
 import { HiMiniTrash } from "react-icons/hi2";
 import { HiOutlineStar } from "react-icons/hi2";
 import { useTasks } from "./useTasks";
-import { useState } from "react";
 import ConfirmModal from "../ui/ConfirmModal";
 
-const tasks = [
-  {
-    id: 1,
-    title: "DON",
-    description: "learning react",
-    startDate: "2/14/2002",
-    endDate: "2/14/2002",
-    status: "completed",
-    priority: "p0",
-  },
-  {
-    id: 2,
-    title: "Zeez",
-    description: "practicing react",
-    startDate: "2/14/2002",
-    endDate: "2/14/2002",
-    status: "uncompleted",
-    priority: "p1",
-  },
-  {
-    id: 3,
-    title: "Abest",
-    description: "learning framer motion",
-    startDate: "2/14/2002",
-    endDate: "2/14/2002",
-    status: "complete",
-    priority: "p2",
-  },
-];
-
-function Task() {
-  const { tasks, IsDeleteTaskModal, handleDeleteTaskModal, hanldeDeleteTask } =
-    useTasks();
+function Task({ tasks }) {
+  const {
+    isDeleteTaskModal,
+    handleDeleteTaskModal,
+    ToggleImportant,
+    hanldeDeleteTask,
+  } = useTasks();
 
   const priorityColor = {
     p0: "bg-green-100",
@@ -47,21 +20,26 @@ function Task() {
 
   return (
     <>
-      {tasks.map((task) => (
-        <>
+      {tasks.map((task) => {
+        return (
           <div
             className="flex flex-col bg-white px-4 pt-6 rounded-lg shadow-sm hover:shadow-lg hover:transition-shadow"
             key={task.id}
           >
+            {/* {isDeleteTaskModal && (
+              <ConfirmModal
+                message="This task will be deleted permanently."
+                onConfirm={() => hanldeDeleteTask(task.id)}
+                handleClick={handleDeleteTaskModal}
+              />
+            )} */}
             <div
               className={` relative ${priorityColor[task.priority]} p-12 rounded-lg shadow-xl`}
             >
               <h1 className="absolute top-0 right-2">{task.priority}</h1>
               <p className="text-center">{task.title}</p>
             </div>
-
             <p className=" font-bai my-6 text-center">{task.description}</p>
-
             <div className="flex justify-between items-center mb-4 ">
               <div>
                 <p className="font-bai font-black tracking-wide text-sm">
@@ -85,28 +63,23 @@ function Task() {
               </p>
 
               <div className="flex text-xl space-x-1 md:space-x-1.5">
-                {task.status === "important" ? (
-                  <HiStar className="cursor-pointer" />
-                ) : (
-                  <HiOutlineStar className="cursor-pointer" />
-                )}
+                <button onClick={() => ToggleImportant(task.id)}>
+                  {task.important === true ? (
+                    <HiStar className="cursor-pointer" />
+                  ) : (
+                    <HiOutlineStar className="cursor-pointer" />
+                  )}
+                </button>
                 <HiMiniTrash
                   className="cursor-pointer"
-                  onClick={handleDeleteTaskModal}
+                  onClick={() => hanldeDeleteTask(task.id)}
                 />
                 <HiEllipsisVertical className="cursor-pointer" />
               </div>
             </div>
           </div>
-          {IsDeleteTaskModal && (
-            <ConfirmModal
-              message="This task will be deleted permanently."
-              onConfirm={() => hanldeDeleteTask(task.id)}
-              handleClick={handleDeleteTaskModal}
-            />
-          )}
-        </>
-      ))}
+        );
+      })}
     </>
   );
 }
