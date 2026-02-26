@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
+
 import { HiMiniXMark } from "react-icons/hi2";
 import Button from "./Button";
 import { useTasks } from "../components/useTasks";
@@ -21,17 +22,21 @@ function Sidebar() {
   const {
     showSideBar,
     handleSideBarClick,
-    handleDeleteTaskModal,
-    isDeleteTaskModal,
+    isDeleteAllModal,
+    handleDeleteAllModal,
+    onCancelDelete,
+    onConfirmDeleteAll,
   } = useTasks();
+
   const handleClick = useMove();
 
   return (
     <>
-      {isDeleteTaskModal && (
+      {isDeleteAllModal && (
         <ConfirmModal
           message="All data will be deleted permanently."
-          handleClick={handleDeleteTaskModal}
+          handleClick={onCancelDelete}
+          onConfirm={onConfirmDeleteAll}
         />
       )}
 
@@ -73,7 +78,7 @@ function Sidebar() {
           <motion.li
             variants={LiVariant}
             whileHover="hover"
-            onClick={handleDeleteTaskModal}
+            onClick={handleDeleteAllModal}
           >
             Delete All Data
           </motion.li>

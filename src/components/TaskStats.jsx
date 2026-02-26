@@ -1,37 +1,42 @@
 import { Link } from "react-router-dom";
-
-const stats = [
-  {
-    statName: "Total Task",
-    statNumber: 50,
-    statLogo: "T",
-    statCreate: "111 last month",
-    statBgColor: "bg-blue-600",
-  },
-  {
-    statName: "Completed Task",
-    statNumber: 10,
-    statLogo: "C",
-    statCreate: "110 last month",
-    statBgColor: "bg-green-800",
-  },
-  {
-    statName: "Uncompleted Task",
-    statNumber: 5,
-    statLogo: "U",
-    statCreate: "109 last month",
-    statBgColor: "bg-yellow-400",
-  },
-  {
-    statName: "Important Task",
-    statNumber: 6,
-    statLogo: "M",
-    statCreate: "108 last month",
-    statBgColor: "bg-red-400",
-  },
-];
+import { useTasks } from "./useTasks";
 
 function TaskStats() {
+  const { tasks, completedTask, importantTask, unCompletedTask } = useTasks();
+  const stats = [
+    {
+      statName: "Total Task",
+      statNumber: tasks.length,
+      statLogo: "T",
+      statCreate: "111 last month",
+      statBgColor: "bg-blue-600",
+      path: "/AllTask",
+    },
+    {
+      statName: "Completed Task",
+      statNumber: completedTask.length,
+      statLogo: "C",
+      statCreate: "110 last month",
+      statBgColor: "bg-green-800",
+      path: "/CompletedTask",
+    },
+    {
+      statName: "Uncompleted Task",
+      statNumber: unCompletedTask.length,
+      statLogo: "U",
+      statCreate: "109 last month",
+      statBgColor: "bg-yellow-400",
+      path: "/UnCompletedTask",
+    },
+    {
+      statName: "Important Task",
+      statNumber: importantTask.length,
+      statLogo: "M",
+      statCreate: "108 last month",
+      statBgColor: "bg-red-400",
+      path: "/ImportantTask",
+    },
+  ];
   return (
     <section className="mx-5 cursor-pointer">
       <h1 className="font-nunito  text-3xl text-center tracking-wider m-8 md:mb-20">
@@ -42,7 +47,7 @@ function TaskStats() {
         {stats.map((stat) => {
           return (
             <Link
-              to="/AllTask"
+              to={stat.path}
               className="bg-white p-4 shadow-lg"
               key={stat.statName}
             >

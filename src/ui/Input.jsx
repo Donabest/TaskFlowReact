@@ -13,7 +13,7 @@ function Input({ width }) {
           transition: { type: "spring", stiffness: 1000, duration: 0.2 },
         }}
       />
-      <HiMagnifyingGlass className="absolute right-10 bottom-3.5 text-center opacity-40" />
+      <HiMagnifyingGlass className="absolute right-10 bottom-3.5 text-center opacity-40 md:hidden" />
     </form>
   );
 }

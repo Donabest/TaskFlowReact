@@ -37,7 +37,9 @@ const FakeTasks = [
 
 function TasksProvider({ children }) {
   const [showSideBar, setShowSideBar] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
   const [isDeleteTaskModal, setIsDeleteTaskModal] = useState(false);
+  const [isDeleteAllModal, setIsDeleteAllModal] = useState(false);
   const [tasks, setTask] = useState(FakeTasks);
 
   const importantTask = tasks.filter((task) => task.important === true);
@@ -48,13 +50,27 @@ function TasksProvider({ children }) {
     setShowSideBar((show) => !show);
   }
 
-  function handleDeleteTaskModal() {
-    setIsDeleteTaskModal((show) => !show);
+  function onConfirmDelete() {
+    setTask((task) => task.filter((task) => task.id !== taskToDelete));
+    setIsDeleteTaskModal(false);
   }
 
-  function hanldeDeleteTask(id) {
-    setTask((task) => task.filter((task) => task.id !== id));
-    // setIsDeleteTaskModal((show) => !show);
+  function onCancelDelete() {
+    setIsDeleteTaskModal(false);
+    setIsDeleteAllModal(false);
+  }
+
+  function handleDeleteAllModal() {
+    setIsDeleteAllModal(true);
+  }
+
+  function onConfirmDeleteAll() {
+    setTask([]);
+    setIsDeleteAllModal(false);
+  }
+  function hanldeDeleteTaskModal(id) {
+    setTaskToDelete(id);
+    setIsDeleteTaskModal(true);
   }
 
   function ToggleImportant(id) {
@@ -65,21 +81,38 @@ function TasksProvider({ children }) {
     );
   }
 
+  function ToggleCompleted(id) {
+    const toggleComplete = tasks.map((task) =>
+      task.id === id
+        ? {
+            ...task,
+            status: task.status === "completed" ? "uncompleted" : "completed",
+          }
+        : task,
+    );
+    setTask(toggleComplete);
+  }
+
   return (
     <TasksContext.Provider
       value={{
         showSideBar,
         setShowSideBar,
-        isDeleteTaskModal,
-        handleDeleteTaskModal,
         handleSideBarClick,
-        setIsDeleteTaskModal,
         tasks,
-        hanldeDeleteTask,
+        setTask,
         ToggleImportant,
         completedTask,
         importantTask,
         unCompletedTask,
+        ToggleCompleted,
+        onConfirmDelete,
+        hanldeDeleteTaskModal,
+        isDeleteTaskModal,
+        onCancelDelete,
+        handleDeleteAllModal,
+        isDeleteAllModal,
+        onConfirmDeleteAll,
       }}
     >
       {children}

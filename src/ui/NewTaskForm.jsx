@@ -6,16 +6,20 @@ import FormError from "./FormError";
 import { useTasks } from "../components/useTasks";
 import { useNavigate } from "react-router-dom";
 
-function NewTaskForm() {
-  const { register, handleSubmit, formState } = useForm();
+function NewTaskForm({ taskToEdit = {} }) {
+  const { register, handleSubmit, formState } = useForm({});
   const { setTask } = useTasks();
   const navigate = useNavigate();
 
   const { errors } = formState;
-  const id = crypto.randomUUID();
-
   function onSubmit(data) {
-    setTask((task) => [...task, data]);
+    const newTasks = {
+      ...data,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+    };
+
+    setTask((prevTask) => [...prevTask, newTasks]);
     toast.success("New Task Added sucessfully");
     navigate("/AllTask");
   }
@@ -30,7 +34,6 @@ function NewTaskForm() {
         className=" p-4 mt-4 space-y-8 md:max-w-xl md:mx-auto md:pr-0"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
-        <input type="hidden" defaultValue={id} {...register("id")} />
         <div className="flex flex-col space-y-4">
           <label htmlFor="title">Title</label>
           <input

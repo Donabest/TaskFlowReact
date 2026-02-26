@@ -6,10 +6,12 @@ import ConfirmModal from "../ui/ConfirmModal";
 
 function Task({ tasks }) {
   const {
-    isDeleteTaskModal,
-    handleDeleteTaskModal,
     ToggleImportant,
-    hanldeDeleteTask,
+    ToggleCompleted,
+    isDeleteTaskModal,
+    hanldeDeleteTaskModal,
+    onConfirmDelete,
+    onCancelDelete,
   } = useTasks();
 
   const priorityColor = {
@@ -26,13 +28,13 @@ function Task({ tasks }) {
             className="flex flex-col bg-white px-4 pt-6 rounded-lg shadow-sm hover:shadow-lg hover:transition-shadow"
             key={task.id}
           >
-            {/* {isDeleteTaskModal && (
+            {isDeleteTaskModal && (
               <ConfirmModal
                 message="This task will be deleted permanently."
-                onConfirm={() => hanldeDeleteTask(task.id)}
-                handleClick={handleDeleteTaskModal}
+                handleClick={onCancelDelete}
+                onConfirm={onConfirmDelete}
               />
-            )} */}
+            )}
             <div
               className={` relative ${priorityColor[task.priority]} p-12 rounded-lg shadow-xl`}
             >
@@ -58,6 +60,7 @@ function Task({ tasks }) {
             <div className="flex justify-between items-center my-4 ">
               <p
                 className={`${priorityColor[task.priority]} px-4 py-2 rounded-xl cursor-pointer`}
+                onClick={() => ToggleCompleted(task.id)}
               >
                 {task.status}
               </p>
@@ -72,7 +75,7 @@ function Task({ tasks }) {
                 </button>
                 <HiMiniTrash
                   className="cursor-pointer"
-                  onClick={() => hanldeDeleteTask(task.id)}
+                  onClick={() => hanldeDeleteTaskModal(task.id)}
                 />
                 <HiEllipsisVertical className="cursor-pointer" />
               </div>
