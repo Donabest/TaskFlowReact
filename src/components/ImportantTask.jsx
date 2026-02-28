@@ -1,13 +1,13 @@
 import TasksBody from "../ui/TasksBody";
 import { useTasks } from "./useTasks";
-import Task from "./Task";
+import TaskItem from "../ui/TaskItem";
 
 function ImportantTask() {
   const { importantTask } = useTasks();
 
   return (
     <TasksBody TaskTitle={`Important Task (${importantTask.length})`}>
-      <Task tasks={importantTask} />
+      <TaskItem tasks={importantTask} />
     </TasksBody>
   );
 }

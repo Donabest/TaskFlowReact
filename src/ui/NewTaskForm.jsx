@@ -6,7 +6,7 @@ import FormError from "./FormError";
 import { useTasks } from "../components/useTasks";
 import { useNavigate } from "react-router-dom";
 
-function NewTaskForm({ taskToEdit = {} }) {
+function NewTaskForm() {
   const { register, handleSubmit, formState } = useForm({});
   const { setTask } = useTasks();
   const navigate = useNavigate();
@@ -102,7 +102,6 @@ function NewTaskForm({ taskToEdit = {} }) {
               <option value="complete">complete</option>
               <option value="Uncomplete">Uncomplete</option>
               <option value="important">Important</option>
-              <option value="important">Unimportant</option>
             </select>
             <FormError error={errors?.status?.message} />
           </div>

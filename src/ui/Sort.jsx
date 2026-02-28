@@ -1,11 +1,9 @@
 import { HiListBullet } from "react-icons/hi2";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { useSearchParams } from "react-router-dom";
-import { useTasks } from "../components/useTasks";
 
 function Sort() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { tasks } = useTasks();
   const sortBy = searchParams.get("sortby") || "";
 
   function handleChange(e) {
@@ -30,8 +28,8 @@ function Sort() {
         <option value="sort by" disabled>
           sort by
         </option>
-        <option value="completed first">Completed First</option>
-        <option value="uncompleted first">UnCompleted First</option>
+        <option value="completedFirst">Completed First</option>
+        <option value="uncompletedFirst">UnCompleted First</option>
       </select>
     </div>
   );

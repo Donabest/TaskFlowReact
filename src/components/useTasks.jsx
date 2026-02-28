@@ -6,7 +6,7 @@ const FakeTasks = [
   {
     id: "yghjkh",
     title: "DON",
-    description: "learning react",
+    description: "learn basic or pivot to Ai",
     startDate: "2/14/2002",
     endDate: "2/14/2002",
     status: "completed",

@@ -1,13 +1,13 @@
 import TasksBody from "../ui/TasksBody";
 import { useTasks } from "./useTasks";
-import Task from "./Task";
+import TaskItem from "../ui/TaskItem";
 
 function CompletedTask() {
   const { completedTask } = useTasks();
 
   return (
     <TasksBody TaskTitle={`Completed Task (${completedTask.length})`}>
-      <Task tasks={completedTask} />
+      <TaskItem tasks={completedTask} />
     </TasksBody>
   );
 }
