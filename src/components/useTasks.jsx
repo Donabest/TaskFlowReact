@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const TasksContext = createContext();
 
@@ -92,6 +92,15 @@ function TasksProvider({ children }) {
     );
     setTask(toggleComplete);
   }
+
+  useEffect(function () {
+    function handleOutsideClick(e) {
+      if (e.key === "Escape") setShowSideBar(false);
+    }
+    window.addEventListener("keydown", handleOutsideClick);
+
+    return () => window.removeEventListener("keydown", handleOutsideClick);
+  }, []);
 
   return (
     <TasksContext.Provider

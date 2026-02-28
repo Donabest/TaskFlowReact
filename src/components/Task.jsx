@@ -3,6 +3,7 @@ import { HiMiniTrash } from "react-icons/hi2";
 import { HiOutlineStar } from "react-icons/hi2";
 import { useTasks } from "./useTasks";
 import ConfirmModal from "../ui/ConfirmModal";
+import { Link } from "react-router-dom";
 
 function Task({ task }) {
   const {
@@ -69,7 +70,9 @@ function Task({ task }) {
             className="cursor-pointer"
             onClick={() => hanldeDeleteTaskModal(task.id)}
           />
-          <HiEllipsisVertical className="cursor-pointer" />
+          <Link to={`/AddNewTask?id=${task.id}`}>
+            <HiEllipsisVertical className="cursor-pointer" />
+          </Link>
         </div>
       </div>
     </div>

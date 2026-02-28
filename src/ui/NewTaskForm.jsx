@@ -4,24 +4,49 @@ import toast from "react-hot-toast";
 
 import FormError from "./FormError";
 import { useTasks } from "../components/useTasks";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 function NewTaskForm() {
-  const { register, handleSubmit, formState } = useForm({});
-  const { setTask } = useTasks();
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { setTask, tasks } = useTasks();
   const navigate = useNavigate();
 
   const { errors } = formState;
-  function onSubmit(data) {
-    const newTasks = {
-      ...data,
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
-    };
+  const [searchParams] = useSearchParams();
+  const taskId = searchParams.get("id");
+  const TaskToEdit = tasks.find((task) => task.id === taskId);
 
-    setTask((prevTask) => [...prevTask, newTasks]);
-    toast.success("New Task Added sucessfully");
-    navigate("/AllTask");
+  const isEdit = Boolean(taskId);
+  useEffect(
+    function () {
+      if (TaskToEdit) {
+        reset(TaskToEdit);
+      }
+    },
+    [reset, TaskToEdit],
+  );
+
+  function onSubmit(data) {
+    if (TaskToEdit) {
+      setTask((prevTask) =>
+        prevTask.map((task) =>
+          task.id === taskId ? { ...task, ...data } : task,
+        ),
+      );
+      toast.success("Task Edited sucessfully");
+      navigate("/AllTask");
+    } else {
+      const newTasks = {
+        ...data,
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+      };
+
+      setTask((prevTask) => [...prevTask, newTasks]);
+      toast.success("New Task Added sucessfully");
+      navigate("/AllTask");
+    }
   }
 
   function onError(data) {
@@ -101,7 +126,6 @@ function NewTaskForm() {
             >
               <option value="complete">complete</option>
               <option value="Uncomplete">Uncomplete</option>
-              <option value="important">Important</option>
             </select>
             <FormError error={errors?.status?.message} />
           </div>
@@ -125,7 +149,7 @@ function NewTaskForm() {
         </div>
 
         <Button style="w-full p-4 bg-blue-600 text-center text-white hover:bg-blue-500 ">
-          Add new Task
+          {isEdit ? "Edit Task" : "Add New Task"}
         </Button>
       </form>
     </>
