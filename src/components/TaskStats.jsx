@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTaskApi } from "./useTaskApi";
-import Spinner from "../ui/spinner";
+import Spinner from "../ui/Spinner";
 
 function TaskStats() {
   const { tasks, completedTask, importantTask, unCompletedTask, isLoading } =
