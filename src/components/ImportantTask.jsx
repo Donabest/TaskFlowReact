@@ -1,7 +1,7 @@
 import TasksBody from "../ui/TasksBody";
 import TaskItem from "../ui/TaskItem";
 import { useTaskApi } from "./useTaskApi";
-import Spinner from "../ui/spinner";
+import Spinner from "../ui/Spinner";
 
 function ImportantTask() {
   const { importantTask, isLoading } = useTaskApi();

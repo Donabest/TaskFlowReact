@@ -1,6 +1,6 @@
 import TasksBody from "../ui/TasksBody";
 import TaskItem from "../ui/TaskItem";
-import Spinner from "../ui/spinner";
+import Spinner from "../ui/Spinner";
 import { useTaskApi } from "./useTaskApi";
 
 function UnCompletedTask() {
