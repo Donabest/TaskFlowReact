@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
-import { useTasks } from "./useTasks";
+import { useTaskApi } from "./useTaskApi";
+import Spinner from "../ui/spinner";
 
 function TaskStats() {
-  const { tasks, completedTask, importantTask, unCompletedTask } = useTasks();
+  const { tasks, completedTask, importantTask, unCompletedTask, isLoading } =
+    useTaskApi();
+
   const stats = [
     {
       statName: "Total Task",
@@ -37,6 +40,8 @@ function TaskStats() {
       path: "/ImportantTask",
     },
   ];
+
+  if (isLoading) return <Spinner />;
   return (
     <section className="mx-5 cursor-pointer">
       <h1 className="font-nunito  text-3xl text-center tracking-wider m-8 md:mb-20">

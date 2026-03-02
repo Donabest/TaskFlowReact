@@ -8,7 +8,7 @@ function TaskItem({ tasks }) {
   let sortedTasks = tasks;
 
   if (sortBy === "completedFirst") {
-    sortedTasks = [...tasks].sort((a, b) => {
+    sortedTasks = [...tasks]?.sort((a, b) => {
       return (b.status === "completed") - (a.status === "completed");
     });
   }
@@ -19,7 +19,7 @@ function TaskItem({ tasks }) {
     });
   }
 
-  return sortedTasks.map((task) => <Task key={task.id} task={task} />);
+  return sortedTasks?.map((task) => <Task key={task.id} task={task} />);
 }
 
 export default TaskItem;

@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useTaskApi } from "./useTaskApi";
 
 const TasksContext = createContext();
 
@@ -37,7 +38,6 @@ const FakeTasks = [
 
 function TasksProvider({ children }) {
   const [showSideBar, setShowSideBar] = useState(false);
-  const [taskToDelete, setTaskToDelete] = useState(null);
   const [isDeleteTaskModal, setIsDeleteTaskModal] = useState(false);
   const [isDeleteAllModal, setIsDeleteAllModal] = useState(false);
   const [tasks, setTask] = useState(FakeTasks);
@@ -48,11 +48,6 @@ function TasksProvider({ children }) {
 
   function handleSideBarClick() {
     setShowSideBar((show) => !show);
-  }
-
-  function onConfirmDelete() {
-    setTask((task) => task.filter((task) => task.id !== taskToDelete));
-    setIsDeleteTaskModal(false);
   }
 
   function onCancelDelete() {
@@ -67,10 +62,6 @@ function TasksProvider({ children }) {
   function onConfirmDeleteAll() {
     setTask([]);
     setIsDeleteAllModal(false);
-  }
-  function hanldeDeleteTaskModal(id) {
-    setTaskToDelete(id);
-    setIsDeleteTaskModal(true);
   }
 
   function ToggleImportant(id) {
@@ -115,13 +106,12 @@ function TasksProvider({ children }) {
         importantTask,
         unCompletedTask,
         ToggleCompleted,
-        onConfirmDelete,
-        hanldeDeleteTaskModal,
         isDeleteTaskModal,
         onCancelDelete,
         handleDeleteAllModal,
         isDeleteAllModal,
         onConfirmDeleteAll,
+        setIsDeleteTaskModal,
       }}
     >
       {children}

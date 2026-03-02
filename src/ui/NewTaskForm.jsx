@@ -6,9 +6,12 @@ import FormError from "./FormError";
 import { useTasks } from "../components/useTasks";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useCreateTasks } from "../components/useCreateTask";
 
 function NewTaskForm() {
   const { register, handleSubmit, reset, formState } = useForm();
+
+  const { createTasks, isPending: isCreating } = useCreateTasks();
   const { setTask, tasks } = useTasks();
   const navigate = useNavigate();
 
@@ -39,12 +42,9 @@ function NewTaskForm() {
     } else {
       const newTasks = {
         ...data,
-        id: crypto.randomUUID(),
-        createdAt: new Date().toISOString(),
+        important: false,
       };
-
-      setTask((prevTask) => [...prevTask, newTasks]);
-      toast.success("New Task Added sucessfully");
+      createTasks({ ...newTasks });
       navigate("/AllTask");
     }
   }
@@ -64,6 +64,7 @@ function NewTaskForm() {
           <input
             type="text"
             className="w-full p-3 "
+            disabled={isCreating}
             {...register("title", {
               required: "This field is required",
             })}
@@ -77,6 +78,7 @@ function NewTaskForm() {
             name="description"
             id="des"
             className=" p-5  "
+            disabled={isCreating}
             {...register("description", {
               required: "This field is required",
             })}
@@ -92,6 +94,7 @@ function NewTaskForm() {
               name="start date"
               id="sd"
               className="p-3 rounded-lg"
+              disabled={isCreating}
               {...register("startDate", {
                 required: "This field is required",
               })}
@@ -105,6 +108,7 @@ function NewTaskForm() {
               name="End date"
               id="ed"
               className="p-3 rounded-lg"
+              disabled={isCreating}
               {...register("endDate", {
                 required: "This field is required",
               })}
@@ -120,6 +124,7 @@ function NewTaskForm() {
               name="status"
               id="status-select"
               className="p-2 rounded-lg"
+              disabled={isCreating}
               {...register("status", {
                 required: "This field is required",
               })}
@@ -136,6 +141,7 @@ function NewTaskForm() {
               name="priorities"
               id="priority-select"
               className="px-8 py-2 rounded-lg"
+              disabled={isCreating}
               {...register("priority", {
                 required: "This field is required",
               })}
@@ -149,6 +155,7 @@ function NewTaskForm() {
         </div>
 
         <Button style="w-full p-4 bg-blue-600 text-center text-white hover:bg-blue-500 ">
+          {isCreating && "Creating New Task"}
           {isEdit ? "Edit Task" : "Add New Task"}
         </Button>
       </form>

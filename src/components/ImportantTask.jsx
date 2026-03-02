@@ -1,9 +1,11 @@
 import TasksBody from "../ui/TasksBody";
-import { useTasks } from "./useTasks";
 import TaskItem from "../ui/TaskItem";
+import { useTaskApi } from "./useTaskApi";
+import Spinner from "../ui/spinner";
 
 function ImportantTask() {
-  const { importantTask } = useTasks();
+  const { importantTask, isLoading } = useTaskApi();
+  if (isLoading) return <Spinner />;
 
   return (
     <TasksBody TaskTitle={`Important Task (${importantTask.length})`}>

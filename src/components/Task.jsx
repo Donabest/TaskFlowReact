@@ -4,16 +4,30 @@ import { HiOutlineStar } from "react-icons/hi2";
 import { useTasks } from "./useTasks";
 import ConfirmModal from "../ui/ConfirmModal";
 import { Link } from "react-router-dom";
+import { useDeleteTask } from "./useDeleteTask";
+import { useUpdateStatus } from "./useUpdateStatus";
+import { useUpdateImportant } from "./useUpdateImportant";
 
 function Task({ task }) {
-  const {
-    ToggleImportant,
-    ToggleCompleted,
-    isDeleteTaskModal,
-    hanldeDeleteTaskModal,
-    onConfirmDelete,
-    onCancelDelete,
-  } = useTasks();
+  const { isDeleteTaskModal, onCancelDelete, setIsDeleteTaskModal } =
+    useTasks();
+
+  const { deleteTask } = useDeleteTask();
+  const { updateStatus, isLoading: isUpdating } = useUpdateStatus();
+  const { updateImportant, isPending: isImportant } = useUpdateImportant();
+
+  function onConfirmDelete(id) {
+    deleteTask(id);
+    setIsDeleteTaskModal(false);
+  }
+
+  function ToggleCompleted(id, currentStatus) {
+    updateStatus({ id, currentStatus });
+  }
+
+  function ToggleImportant(id, currentImportant) {
+    updateImportant({ id, currentImportant });
+  }
 
   const priorityColor = {
     p0: "bg-green-100",
@@ -27,7 +41,7 @@ function Task({ task }) {
         <ConfirmModal
           message="This task will be deleted permanently."
           handleClick={onCancelDelete}
-          onConfirm={onConfirmDelete}
+          onConfirm={() => onConfirmDelete(task.id)}
         />
       )}
       <div
@@ -52,14 +66,14 @@ function Task({ task }) {
 
       <div className="flex justify-between items-center my-4 ">
         <p
-          className={`${priorityColor[task.priority]} px-4 py-2 rounded-xl cursor-pointer`}
-          onClick={() => ToggleCompleted(task.id)}
+          className={`${priorityColor[task.priority]} px-4 py-2 rounded-xl ${isImportant ? "cursor-not-allowed" : "cursor-pointer"}`}
+          onClick={() => ToggleCompleted(task.id, task.status)}
         >
-          {task.status}
+          {isUpdating ? "updating..." : task.status}
         </p>
 
         <div className="flex text-xl space-x-1 md:space-x-1.5">
-          <button onClick={() => ToggleImportant(task.id)}>
+          <button onClick={() => ToggleImportant(task.id, task.important)}>
             {task.important === true ? (
               <HiStar className="cursor-pointer" />
             ) : (
@@ -68,7 +82,7 @@ function Task({ task }) {
           </button>
           <HiMiniTrash
             className="cursor-pointer"
-            onClick={() => hanldeDeleteTaskModal(task.id)}
+            onClick={() => setIsDeleteTaskModal(true)}
           />
           <Link to={`/AddNewTask?id=${task.id}`}>
             <HiEllipsisVertical className="cursor-pointer" />
