@@ -9,15 +9,20 @@ import { useUpdateStatus } from "./useUpdateStatus";
 import { useUpdateImportant } from "./useUpdateImportant";
 
 function Task({ task }) {
-  const { isDeleteTaskModal, onCancelDelete, setIsDeleteTaskModal } =
-    useTasks();
+  const {
+    isDeleteTaskModal,
+    onCancelDelete,
+    setIsDeleteTaskModal,
+    handleOpenDeleteModal,
+    taskToDelete,
+  } = useTasks();
 
   const { deleteTask } = useDeleteTask();
   const { updateStatus, isLoading: isUpdating } = useUpdateStatus();
   const { updateImportant, isPending: isImportant } = useUpdateImportant();
 
-  function onConfirmDelete(id) {
-    deleteTask(id);
+  function onConfirmDelete() {
+    deleteTask(taskToDelete);
     setIsDeleteTaskModal(false);
   }
 
@@ -41,7 +46,7 @@ function Task({ task }) {
         <ConfirmModal
           message="This task will be deleted permanently."
           handleClick={onCancelDelete}
-          onConfirm={() => onConfirmDelete(task.id)}
+          onConfirm={onConfirmDelete}
         />
       )}
       <div
@@ -82,7 +87,7 @@ function Task({ task }) {
           </button>
           <HiMiniTrash
             className="cursor-pointer"
-            onClick={() => setIsDeleteTaskModal(true)}
+            onClick={() => handleOpenDeleteModal(task.id)}
           />
           <Link to={`/AddNewTask?id=${task.id}`}>
             <HiEllipsisVertical className="cursor-pointer" />

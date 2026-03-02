@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTaskAPi } from "./apiTasks";
 import toast from "react-hot-toast";
-import { useTasks } from "./useTasks";
 
 export function useDeleteTask() {
   const queryClient = useQueryClient();

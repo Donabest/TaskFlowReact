@@ -41,6 +41,7 @@ function TasksProvider({ children }) {
   const [isDeleteTaskModal, setIsDeleteTaskModal] = useState(false);
   const [isDeleteAllModal, setIsDeleteAllModal] = useState(false);
   const [tasks, setTask] = useState(FakeTasks);
+  const [taskToDelete, setTaskToDelete] = useState();
 
   const importantTask = tasks.filter((task) => task.important === true);
   const completedTask = tasks.filter((task) => task.status === "completed");
@@ -48,6 +49,11 @@ function TasksProvider({ children }) {
 
   function handleSideBarClick() {
     setShowSideBar((show) => !show);
+  }
+
+  function handleOpenDeleteModal(id) {
+    setIsDeleteTaskModal(true);
+    setTaskToDelete(id);
   }
 
   function onCancelDelete() {
@@ -112,6 +118,8 @@ function TasksProvider({ children }) {
         isDeleteAllModal,
         onConfirmDeleteAll,
         setIsDeleteTaskModal,
+        handleOpenDeleteModal,
+        taskToDelete,
       }}
     >
       {children}
