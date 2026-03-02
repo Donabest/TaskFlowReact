@@ -1,5 +1,5 @@
 import Sort from "../ui/Sort";
-import NewTask from "./NewTAsk";
+import NewTask from "./NewTask";
 
 function TasksBody({ TaskTitle, children }) {
   return (
