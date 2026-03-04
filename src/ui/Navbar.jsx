@@ -5,7 +5,7 @@ import Input from "./Input";
 import Logo from "./Logo";
 import AddNewTaskButton from "./AddNewTaskButton";
 import User from "./User";
-import { useTasks } from "../components/useTasks";
+import { useTasks } from "../Hooks/useTasks";
 
 function Navbar() {
   const { handleSideBarClick } = useTasks();

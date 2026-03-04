@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { HiBell } from "react-icons/hi2";
 
 import Button from "./Button";
-import { useMove } from "../components/useMove";
+import { useMove } from "../Hooks/useMove";
 
 function NewTaskButton() {
   const handleClick = useMove();

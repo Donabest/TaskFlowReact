@@ -3,9 +3,10 @@ import { AnimatePresence, motion } from "motion/react";
 
 import { HiMiniXMark } from "react-icons/hi2";
 import Button from "./Button";
-import { useTasks } from "../components/useTasks";
-import { useMove } from "../components/useMove";
+import { useTasks } from "../Hooks/useTasks";
+import { useMove } from "../Hooks/useMove";
 import ConfirmModal from "./ConfirmModal";
+import { useDeleteAllTask } from "../features/AllTasks/useDeleteAllTask";
 
 const LiVariant = {
   hover: {
@@ -25,10 +26,15 @@ function Sidebar() {
     isDeleteAllModal,
     handleDeleteAllModal,
     onCancelDelete,
-    onConfirmDeleteAll,
   } = useTasks();
 
   const handleClick = useMove();
+
+  const { deleteAll, isDeletingAll } = useDeleteAllTask();
+  console.log(deleteAll);
+  function onConfirmDeleteAll() {
+    console.log(deleteAll);
+  }
 
   return (
     <AnimatePresence initial={false}>

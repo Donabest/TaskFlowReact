@@ -40,6 +40,35 @@ export async function updateImportant({ id, currentImportant }) {
   }
 }
 
+export async function getTaskById(id) {
+  const { data, error } = await supabase
+    .from("tasks")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    throw new Error(`${id} could not be found`);
+  }
+
+  return data;
+}
+
+export async function editTask({ newTask, id }) {
+  const { data, error } = await supabase
+    .from("tasks")
+    .update(newTask)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(`Task could not be found`);
+  }
+
+  return data;
+}
+
 export async function deleteTaskAPi(id) {
   const { data, error } = await supabase.from("tasks").delete().eq("id", id);
   if (error) {
@@ -47,4 +76,13 @@ export async function deleteTaskAPi(id) {
   }
 
   return data;
+}
+
+export async function deleteAllTask() {
+  console.log("is Api Running");
+  const { error } = await supabase.from("tasks").delete().not("id", "is", null);
+
+  if (error) {
+    throw new Error(error.message);
+  }
 }

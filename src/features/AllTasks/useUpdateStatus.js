@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateStatus as updateStatusApi } from "./apiTasks";
+import { updateStatus as updateStatusApi } from "../../service/apiTasks";
 import toast from "react-hot-toast";
 
 export function useUpdateStatus() {

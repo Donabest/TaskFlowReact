@@ -1,7 +1,7 @@
 import TasksBody from "../ui/TasksBody";
 import TaskItem from "../ui/TaskItem";
 import Spinner from "../ui/Spinner";
-import { useTaskApi } from "./useTaskApi";
+import { useTaskApi } from "../features/AllTasks/useTaskApi";
 
 function UnCompletedTask() {
   const { unCompletedTask, isLoading } = useTaskApi();

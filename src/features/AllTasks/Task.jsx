@@ -1,12 +1,12 @@
 import { HiEllipsisVertical, HiStar } from "react-icons/hi2";
 import { HiMiniTrash } from "react-icons/hi2";
 import { HiOutlineStar } from "react-icons/hi2";
-import { useTasks } from "./useTasks";
-import ConfirmModal from "../ui/ConfirmModal";
+import { useTasks } from "../../Hooks/useTasks";
+import ConfirmModal from "../../ui/ConfirmModal";
 import { Link } from "react-router-dom";
 import { useDeleteTask } from "./useDeleteTask";
 import { useUpdateStatus } from "./useUpdateStatus";
-import { useUpdateImportant } from "./useUpdateImportant";
+import { useUpdateImportant } from "../ImportantTask/useUpdateImportant";
 
 function Task({ task }) {
   const {

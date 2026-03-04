@@ -1,4 +1,4 @@
-import NewTaskForm from "../ui/NewTaskForm";
+import NewTaskForm from "../../ui/NewTaskForm";
 
 function AddNewTask() {
   return (

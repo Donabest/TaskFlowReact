@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useTaskApi } from "./useTaskApi";
+import { useTaskApi } from "../features/AllTasks/useTaskApi";
 import Spinner from "../ui/Spinner";
 
 function TaskStats() {

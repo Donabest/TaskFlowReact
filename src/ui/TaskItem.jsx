@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import Task from "../components/Task";
+import Task from "../features/AllTasks/Task";
 
 function TaskItem({ tasks }) {
   const [searchParams] = useSearchParams();

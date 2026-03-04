@@ -1,41 +1,54 @@
-import Button from "./Button";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useCreateTasks } from "../features/AllTasks/useCreateTask";
+import { useEditTask } from "../Hooks/useEditTask";
+import { useTaskApi } from "../features/AllTasks/useTaskApi";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import FormError from "./FormError";
-import { useTasks } from "../components/useTasks";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
-import { useCreateTasks } from "../components/useCreateTask";
+import Button from "./Button";
 
 function NewTaskForm() {
-  const { register, handleSubmit, reset, formState } = useForm();
-
-  const { createTasks, isPending: isCreating } = useCreateTasks();
-  const { setTask, tasks } = useTasks();
-  const navigate = useNavigate();
-
-  const { errors } = formState;
   const [searchParams] = useSearchParams();
   const taskId = searchParams.get("id");
-  const TaskToEdit = tasks.find((task) => task.id === taskId);
+  const id = Number(taskId);
+  const isEditSession = Boolean(id);
 
-  const isEdit = Boolean(taskId);
-  useEffect(
-    function () {
-      if (TaskToEdit) {
-        reset(TaskToEdit);
-      }
-    },
-    [reset, TaskToEdit],
-  );
+  const { tasks } = useTaskApi();
+  const { createTasks, isPending: isCreating } = useCreateTasks();
+  const { editTask } = useEditTask();
+
+  const taskToEdit = isEditSession
+    ? tasks.find((task) => task.id === id)
+    : null;
+
+  const { register, handleSubmit, reset, formState } = useForm({
+    defaultValues: isEditSession && taskToEdit ? taskToEdit : {},
+  });
+
+  useEffect(() => {
+    if (taskToEdit) {
+      reset(taskToEdit);
+    }
+  }, [reset, taskToEdit]);
+
+  const { errors } = formState;
+
+  const navigate = useNavigate();
 
   function onSubmit(data) {
-    if (TaskToEdit) {
-      setTask((prevTask) =>
-        prevTask.map((task) =>
-          task.id === taskId ? { ...task, ...data } : task,
-        ),
+    if (isEditSession) {
+      editTask(
+        {
+          newTask: data,
+          id: id,
+        },
+        {
+          onSuccess: () => {
+            reset();
+          },
+        },
       );
       toast.success("Task Edited sucessfully");
       navigate("/AllTask");
@@ -129,8 +142,8 @@ function NewTaskForm() {
                 required: "This field is required",
               })}
             >
-              <option value="complete">complete</option>
-              <option value="Uncomplete">Uncomplete</option>
+              <option value="completed">completed</option>
+              <option value="Uncompleted">Uncompleted</option>
             </select>
             <FormError error={errors?.status?.message} />
           </div>
@@ -156,7 +169,7 @@ function NewTaskForm() {
 
         <Button style="w-full p-4 bg-blue-600 text-center text-white hover:bg-blue-500 ">
           {isCreating && "Creating New Task"}
-          {isEdit ? "Edit Task" : "Add New Task"}
+          {isEditSession ? "Edit Task" : "Add New Task"}
         </Button>
       </form>
     </>

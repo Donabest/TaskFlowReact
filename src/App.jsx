@@ -1,11 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Applayout from "./ui/Applayout";
-import AllTask from "./components/AllTask";
-import CompletedTask from "./components/CompletedTask";
-import ImportantTask from "./components/ImportantTask";
-import UnCompletedTask from "./components/UnCompletedTask";
-import TaskStats from "./components/TaskStats";
-import AddNewTask from "./components/AddNewTask";
+import AllTask from "./pages/AllTask";
+import CompletedTask from "./pages/CompletedTask";
+import ImportantTask from "./pages/ImportantTask";
+import UnCompletedTask from "./pages/UnCompletedTask";
+import TaskStats from "./pages/TaskStats";
+import AddNewTask from "./features/AllTasks/AddNewTask";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 

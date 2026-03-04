@@ -1,6 +1,6 @@
 import { HiDocumentPlus } from "react-icons/hi2";
 import { motion } from "motion/react";
-import { useMove } from "../components/useMove";
+import { useMove } from "../Hooks/useMove";
 
 function NewTask() {
   const handleClick = useMove();

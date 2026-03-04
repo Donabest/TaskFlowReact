@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 
 import TasksBody from "../ui/TasksBody";
 import TaskItem from "../ui/TaskItem";
-import { useTaskApi } from "./useTaskApi";
+import { useTaskApi } from "../features/AllTasks/useTaskApi";
 import Spinner from "../ui/Spinner";
 
 function AllTask() {

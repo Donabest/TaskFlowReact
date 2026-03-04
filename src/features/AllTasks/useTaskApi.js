@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTasks } from "./apiTasks";
+import { getTasks } from "../../service/apiTasks";
 
 export function useTaskApi() {
-  const { isLoading, data: tasks } = useQuery({
+  const { isLoading, data: tasks = [] } = useQuery({
     queryKey: ["tasks"],
     queryFn: getTasks,
   });
