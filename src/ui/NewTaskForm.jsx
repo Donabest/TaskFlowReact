@@ -17,7 +17,7 @@ function NewTaskForm() {
 
   const { tasks } = useTaskApi();
   const { createTasks, isPending: isCreating } = useCreateTasks();
-  const { editTask } = useEditTask();
+  const { editTask, isPending: isEditing } = useEditTask();
 
   const taskToEdit = isEditSession
     ? tasks.find((task) => task.id === id)
@@ -37,6 +37,7 @@ function NewTaskForm() {
 
   const navigate = useNavigate();
 
+  const isWorking = isCreating || isEditing;
   function onSubmit(data) {
     if (isEditSession) {
       editTask(
@@ -76,8 +77,8 @@ function NewTaskForm() {
           <label htmlFor="title">Title</label>
           <input
             type="text"
-            className="w-full p-3 "
-            disabled={isCreating}
+            className="w-full p-3 focus:outline-solid outline-blue-200 "
+            disabled={isWorking}
             {...register("title", {
               required: "This field is required",
             })}
@@ -90,8 +91,8 @@ function NewTaskForm() {
           <textarea
             name="description"
             id="des"
-            className=" p-5  "
-            disabled={isCreating}
+            className=" p-5 focus:outline-solid outline-blue-200  "
+            disabled={isWorking}
             {...register("description", {
               required: "This field is required",
             })}
@@ -106,8 +107,8 @@ function NewTaskForm() {
               type="date"
               name="start date"
               id="sd"
-              className="p-3 rounded-lg"
-              disabled={isCreating}
+              className="p-3 rounded-lg focus:outline-solid outline-blue-200 "
+              disabled={isWorking}
               {...register("startDate", {
                 required: "This field is required",
               })}
@@ -120,8 +121,8 @@ function NewTaskForm() {
               type="date"
               name="End date"
               id="ed"
-              className="p-3 rounded-lg"
-              disabled={isCreating}
+              className="p-3 rounded-lg focus:outline-solid outline-blue-200 "
+              disabled={isWorking}
               {...register("endDate", {
                 required: "This field is required",
               })}
@@ -136,8 +137,8 @@ function NewTaskForm() {
             <select
               name="status"
               id="status-select"
-              className="p-2 rounded-lg"
-              disabled={isCreating}
+              className="p-2 rounded-lg focus:outline-solid outline-blue-200 "
+              disabled={isWorking}
               {...register("status", {
                 required: "This field is required",
               })}
@@ -153,8 +154,8 @@ function NewTaskForm() {
             <select
               name="priorities"
               id="priority-select"
-              className="px-8 py-2 rounded-lg"
-              disabled={isCreating}
+              className="px-8 py-2 rounded-lg focus:outline-solid outline-blue-200 "
+              disabled={isWorking}
               {...register("priority", {
                 required: "This field is required",
               })}
