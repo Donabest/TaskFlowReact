@@ -77,7 +77,7 @@ function NewTaskForm() {
           <label htmlFor="title">Title</label>
           <input
             type="text"
-            className="w-full p-3 focus:outline-solid outline-blue-200 "
+            className="w-full p-3 focus:outline-solid outline-blue-700 "
             disabled={isWorking}
             {...register("title", {
               required: "This field is required",
@@ -91,7 +91,7 @@ function NewTaskForm() {
           <textarea
             name="description"
             id="des"
-            className=" p-5 focus:outline-solid outline-blue-200  "
+            className=" p-5 focus:outline-solid outline-blue-700  "
             disabled={isWorking}
             {...register("description", {
               required: "This field is required",
@@ -107,7 +107,7 @@ function NewTaskForm() {
               type="date"
               name="start date"
               id="sd"
-              className="p-3 rounded-lg focus:outline-solid outline-blue-200 "
+              className="p-3 rounded-lg focus:outline-solid outline-blue-700 "
               disabled={isWorking}
               {...register("startDate", {
                 required: "This field is required",
@@ -121,7 +121,7 @@ function NewTaskForm() {
               type="date"
               name="End date"
               id="ed"
-              className="p-3 rounded-lg focus:outline-solid outline-blue-200 "
+              className="p-3 rounded-lg focus:outline-solid outline-blue-700 "
               disabled={isWorking}
               {...register("endDate", {
                 required: "This field is required",
@@ -137,7 +137,7 @@ function NewTaskForm() {
             <select
               name="status"
               id="status-select"
-              className="p-2 rounded-lg focus:outline-solid outline-blue-200 "
+              className="p-2 rounded-lg focus:outline-solid outline-blue-700 "
               disabled={isWorking}
               {...register("status", {
                 required: "This field is required",
@@ -154,7 +154,7 @@ function NewTaskForm() {
             <select
               name="priorities"
               id="priority-select"
-              className="px-8 py-2 rounded-lg focus:outline-solid outline-blue-200 "
+              className="px-8 py-2 rounded-lg focus:outline-solid outline-blue-700 "
               disabled={isWorking}
               {...register("priority", {
                 required: "This field is required",
