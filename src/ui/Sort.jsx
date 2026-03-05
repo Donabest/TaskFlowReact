@@ -21,7 +21,7 @@ function Sort() {
       <select
         id="Sortby"
         name="Sort by"
-        className="font-bai bg-white px-2 py-2 rounded-lg shadow-lg outline-blue-700 cursor-pointer"
+        className="font-bai bg-white px-2 py-2 rounded-lg shadow-lg focus:outline-solid outline-blue-200 cursor-pointer"
         value={sortBy}
         onChange={handleChange}
       >

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 
 import { HiMiniXMark } from "react-icons/hi2";
 import Button from "./Button";
@@ -7,6 +7,8 @@ import { useTasks } from "../Hooks/useTasks";
 import { useMove } from "../Hooks/useMove";
 import ConfirmModal from "./ConfirmModal";
 import { useDeleteAllTask } from "../features/AllTasks/useDeleteAllTask";
+import { useTaskApi } from "../features/AllTasks/useTaskApi";
+import toast from "react-hot-toast";
 
 const LiVariant = {
   hover: {
@@ -26,89 +28,95 @@ function Sidebar() {
     isDeleteAllModal,
     handleDeleteAllModal,
     onCancelDelete,
+    setIsDeleteAllModal,
   } = useTasks();
 
+  const { tasks } = useTaskApi();
+  const { deleteAll, isDeletingAll } = useDeleteAllTask();
   const handleClick = useMove();
 
-  const { deleteAll, isDeletingAll } = useDeleteAllTask();
-  console.log(deleteAll);
   function onConfirmDeleteAll() {
-    console.log(deleteAll);
+    if (!tasks || tasks.length === 0) {
+      toast.error("No task to delete");
+      setIsDeleteAllModal(false);
+      return;
+    }
+    deleteAll();
+    setIsDeleteAllModal(false);
   }
 
   return (
-    <AnimatePresence initial={false}>
-      <>
-        {isDeleteAllModal && (
-          <ConfirmModal
-            message="All data will be deleted permanently."
-            handleClick={onCancelDelete}
-            onConfirm={onConfirmDeleteAll}
-          />
-        )}
+    <>
+      {isDeleteAllModal && (
+        <ConfirmModal
+          message="All data will be deleted permanently."
+          handleClick={onCancelDelete}
+          onConfirm={onConfirmDeleteAll}
+          disable={isDeletingAll}
+        />
+      )}
 
-        {showSideBar && (
-          <motion.div
-            className={`block fixed top-0  py-12 px-4 bg-white w-55 h-screen z-1 shadow-4xl md:left-0 md:px-8 md:py-18 md:w-70`}
-            initial={{ x: -100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -100, opacity: 0 }}
-            transition={{ type: "string", stiffness: 300, damping: 30 }}
+      {showSideBar && (
+        <motion.div
+          className={`block fixed top-0  py-12 px-4 bg-white w-55 h-screen z-1 shadow-4xl md:left-0 md:px-8 md:py-18 md:w-70`}
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: -100, opacity: 0 }}
+          transition={{ type: "string", stiffness: 300, damping: 30 }}
+        >
+          <span className="absolute top-4 right-5 p-2 text-2xl rounded-full cursor-pointer hover:transition-all hover:bg-blue-300">
+            <HiMiniXMark onClick={handleSideBarClick} />
+          </span>
+
+          <Button
+            style={"bg-blue-600 text-white w-full py-2 mt-4  "}
+            onClick={handleClick}
           >
-            <span className="absolute top-4 right-5 p-2 text-2xl rounded-full cursor-pointer hover:transition-all hover:bg-blue-300">
-              <HiMiniXMark onClick={handleSideBarClick} />
-            </span>
+            Add new Task
+          </Button>
 
-            <Button
-              style={"bg-blue-600 text-white w-full py-2 mt-4  "}
-              onClick={handleClick}
-            >
-              Add new Task
-            </Button>
-
-            <aside>
-              <ul className="flex flex-col justify-center text-start font-bai mt-10 space-y-5 text-sm md:text-lg">
-                <motion.li variants={LiVariant} whileHover="hover">
-                  <Link to="/AllTask" onClick={handleSideBarClick}>
-                    All Tasks
-                  </Link>
-                </motion.li>
-                <motion.li variants={LiVariant} whileHover="hover">
-                  <Link to="/completedTask" onClick={handleSideBarClick}>
-                    Completed Tasks
-                  </Link>
-                </motion.li>
-                <motion.li variants={LiVariant} whileHover="hover">
-                  <Link to="UnCompletedTask" onClick={handleSideBarClick}>
-                    Uncompleted Tasks
-                  </Link>
-                </motion.li>
-                <motion.li variants={LiVariant} whileHover="hover">
-                  <Link to="ImportantTask" onClick={handleSideBarClick} x>
-                    Important Tasks
-                  </Link>
-                </motion.li>
-                <motion.li variants={LiVariant} whileHover="hover">
-                  <Link to="TastStats" onClick={handleSideBarClick}>
-                    Task Stats
-                  </Link>
-                </motion.li>
-              </ul>
-            </aside>
-
-            <ul className="absolute bottom-6 cursor-pointer ">
-              <motion.li
-                variants={LiVariant}
-                whileHover="hover"
-                onClick={handleDeleteAllModal}
-              >
-                Delete All Data
+          <aside>
+            <ul className="flex flex-col justify-center text-start font-bai mt-10 space-y-5 text-sm md:text-lg">
+              <motion.li variants={LiVariant} whileHover="hover">
+                <Link to="/AllTask" onClick={handleSideBarClick}>
+                  All Tasks
+                </Link>
+              </motion.li>
+              <motion.li variants={LiVariant} whileHover="hover">
+                <Link to="/completedTask" onClick={handleSideBarClick}>
+                  Completed Tasks
+                </Link>
+              </motion.li>
+              <motion.li variants={LiVariant} whileHover="hover">
+                <Link to="UnCompletedTask" onClick={handleSideBarClick}>
+                  Uncompleted Tasks
+                </Link>
+              </motion.li>
+              <motion.li variants={LiVariant} whileHover="hover">
+                <Link to="ImportantTask" onClick={handleSideBarClick} x>
+                  Important Tasks
+                </Link>
+              </motion.li>
+              <motion.li variants={LiVariant} whileHover="hover">
+                <Link to="TastStats" onClick={handleSideBarClick}>
+                  Task Stats
+                </Link>
               </motion.li>
             </ul>
-          </motion.div>
-        )}
-      </>
-    </AnimatePresence>
+          </aside>
+
+          <ul className="absolute bottom-6 cursor-pointer ">
+            <motion.li
+              variants={LiVariant}
+              whileHover="hover"
+              onClick={handleDeleteAllModal}
+            >
+              Delete All Data
+            </motion.li>
+          </ul>
+        </motion.div>
+      )}
+    </>
   );
 }
 

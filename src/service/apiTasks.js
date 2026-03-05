@@ -79,8 +79,7 @@ export async function deleteTaskAPi(id) {
 }
 
 export async function deleteAllTask() {
-  console.log("is Api Running");
-  const { error } = await supabase.from("tasks").delete().not("id", "is", null);
+  const { error } = await supabase.from("tasks").delete().neq("id", 0);
 
   if (error) {
     throw new Error(error.message);

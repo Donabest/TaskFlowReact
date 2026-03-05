@@ -3,21 +3,22 @@ import { HiBell } from "react-icons/hi2";
 
 import Button from "./Button";
 import { useMove } from "../Hooks/useMove";
+import NotificationBell from "./NotificationBell";
 
 function NewTaskButton() {
   const handleClick = useMove();
 
   return (
     <div className="hidden md:flex md:items-center md:space-x-4 md:text-center ">
-      <motion.p
+      {/* <motion.p
         className="text-2xl cursor-pointer "
         whileHover={{
           scale: 1.2,
           transition: { type: "spring", stiffness: 700 },
         }}
       >
-        <HiBell />
-      </motion.p>
+      </motion.p> */}
+      <NotificationBell />
       <Button
         style={`font-bai px-6 py-3 rounded-lg cursor-pointer text-white bg-blue-600 hover:bg-blue-500`}
         onClick={handleClick}

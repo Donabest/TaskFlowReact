@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 export function useDeleteAllTask() {
   const queryClient = useQueryClient();
-  const { data: deleteAll, isPending: isDeletingAll } = useMutation({
+  const { mutate: deleteAll, isPending: isDeletingAll } = useMutation({
     mutationFn: deleteAllTaskApi,
     onSuccess: () => {
       toast.success("All Task Deleted successfully");

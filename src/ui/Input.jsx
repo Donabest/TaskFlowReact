@@ -6,8 +6,8 @@ function Input({ width }) {
     <form>
       <motion.input
         type="text"
-        placeholder="search for task"
-        className={`${width} p-2 px-4 rounded-lg bg-white shadow-sm outline-blue-600 md:block`}
+        placeholder="search for task by title"
+        className={`${width} p-2 px-4 rounded-lg bg-white shadow-sm focus:outline-solid outline-blue-200 md:block`}
         whileFocus={{
           y: -2,
           transition: { type: "spring", stiffness: 1000, duration: 0.2 },

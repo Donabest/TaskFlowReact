@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import AddNewTaskButton from "./AddNewTaskButton";
 import User from "./User";
 import { useTasks } from "../Hooks/useTasks";
+import Notification from "./Notification";
 
 function Navbar() {
   const { handleSideBarClick } = useTasks();
@@ -25,6 +26,7 @@ function Navbar() {
         <AddNewTaskButton />
         <User />
       </nav>
+      <Notification />
 
       <div className="relative w-full pr-6 pl-4 text-center mx-auto  md:hidden">
         <Input width={"w-full"} />

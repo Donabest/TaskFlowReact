@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-function Button({ style, onClick, children }) {
+function Button({ style, onClick, disable, children }) {
   return (
     <motion.button
       className={`${style} cursor-pointer  rounded-lg `}
@@ -9,6 +9,7 @@ function Button({ style, onClick, children }) {
         transition: { type: "spring", stiffness: 1000, duration: 0.5 },
       }}
       onClick={onClick}
+      disabled={disable}
     >
       {children}
     </motion.button>

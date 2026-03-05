@@ -1,6 +1,6 @@
 import Button from "./Button";
 
-function ConfirmModal({ message, handleClick, onConfirm }) {
+function ConfirmModal({ message, handleClick, onConfirm, disable }) {
   return (
     <div
       className={`flex fixed inset-0  items-center justify-center h-screen z-100 bg-black/20`}
@@ -14,6 +14,7 @@ function ConfirmModal({ message, handleClick, onConfirm }) {
           <Button
             style="px-5 py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-500 "
             onClick={onConfirm}
+            disable={disable}
           >
             Confirm
           </Button>
